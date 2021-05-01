@@ -1,0 +1,56 @@
+CREATE TABLE Author (
+author_id SMALLINT PRIMARY KEY, 
+first_name VARCHAR(100),
+last_name VARCHAR(100),
+);
+
+CREATE TABLE Book (
+isbn SMALLINT PRIMARY KEY IDENTITY(1,1), 
+title varchar(100) NOT NULL,
+author_id SMALLINT REFERENCES Author(author_id),
+price SMALLINT
+);
+
+CREATE TABLE Publisher (
+pub_id SMALLINT PRIMARY KEY, 
+name VARCHAR(100) UNIQUE NOT NULL,
+isbn SMALLINT REFERENCES Book(isbn)
+);
+
+CREATE TABLE Genre (
+gen_id SMALLINT PRIMARY KEY, 
+name VARCHAR(50) UNIQUE NOT NULL,
+isbn SMALLINT REFERENCES Book(isbn)
+);
+
+CREATE TABLE Book_Language (
+lan_id SMALLINT PRIMARY KEY, 
+name VARCHAR(50) UNIQUE NOT NULL,
+isbn SMALLINT REFERENCES Book(isbn),
+);
+
+CREATE TABLE Customer (
+ct_id SMALLINT PRIMARY KEY, 
+first_name VARCHAR(100), 
+last_name VARCHAR(100), 
+street VARCHAR(100),
+phoneNr VARCHAR(10),
+);
+
+CREATE TABLE Book_Order (
+order_id SMALLINT PRIMARY KEY, 
+ct_id SMALLINT NOT NULL REFERENCES Customer(ct_id),
+);
+
+CREATE TABLE Book_Author ( 
+author_id SMALLINT FOREIGN KEY REFERENCES Author(author_id), 
+isbn SMALLINT FOREIGN KEY REFERENCES Book(isbn)
+);
+
+
+
+
+
+
+
+
